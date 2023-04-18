@@ -15,17 +15,8 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/shared/DropdownMenu";
-import LoadingSpinner from "@/components/shared/LoadingSpinner";
-import { useEnvironment } from "@/lib/environments/environments";
 import { capitalizeFirstLetter } from "@/lib/utils";
-import {
-  CustomersIcon,
-  ErrorComponent,
-  FilterIcon,
-  FormIcon,
-  ProfileAvatar,
-  SettingsIcon,
-} from "@formbricks/ui";
+import { ProfileAvatar } from "@formbricks/ui";
 import {
   AdjustmentsVerticalIcon,
   ArrowRightOnRectangleIcon,
@@ -39,16 +30,15 @@ import {
   UserCircleIcon,
   UsersIcon,
 } from "@heroicons/react/24/solid";
-import clsx from "clsx";
-import type { Session } from "next-auth";
 import { signOut } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import AddProductModal from "./AddProductModal";
+import { useRouter } from "next/navigation";
 
 export default function EnvironmentsNavbarDropdown({ environment, session }) {
+  const router = useRouter();
   const [widgetSetupCompleted, setWidgetSetupCompleted] = useState(false);
 
   const [showAddProductModal, setShowAddProductModal] = useState(false);
@@ -237,7 +227,6 @@ export default function EnvironmentsNavbarDropdown({ environment, session }) {
             <DropdownMenuItem
               onClick={() => {
                 signOut();
-                setLoading(true);
               }}>
               <div className="flex h-full w-full items-center">
                 <ArrowRightOnRectangleIcon className="mr-2 h-4 w-4" />
