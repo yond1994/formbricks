@@ -17,6 +17,7 @@ export default function TemplateMenuBar({ activeTemplate, environmentId }: Templ
   const addSurvey = async (activeTemplate) => {
     setLoading(true);
     const survey = await createSurvey(environmentId, activeTemplate.preset);
+    router.refresh();
     router.push(`/environments/${environmentId}/surveys/${survey.id}/edit`);
   };
 
