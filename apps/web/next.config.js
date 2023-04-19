@@ -2,6 +2,10 @@
 
 const { createId } = require("@paralleldrive/cuid2");
 
+const formbricksUrl = process.env.VERCEL_URL
+  ? `https://${process.env.VERCEL_URL}`
+  : process.env.FORMBRICKS_URL;
+
 const nextConfig = {
   experimental: {
     appDir: true,
@@ -50,6 +54,9 @@ const nextConfig = {
   },
   env: {
     INSTANCE_ID: createId(),
+    NEXTAUTH_URL: formbricksUrl,
+    NEXT_PUBLIC_FORMBRICKS_URL: formbricksUrl,
+    FORMBRICKS_URL: formbricksUrl,
   },
 };
 

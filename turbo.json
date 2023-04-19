@@ -5,6 +5,7 @@
       "dependsOn": ["^build"],
       "outputs": ["dist/**", ".next/**"],
       "env": [
+        "FORMBRICKS_URL",
         "FORMBRICKS_LEGACY_HOST",
         "GITHUB_ID",
         "GITHUB_SECRET",
