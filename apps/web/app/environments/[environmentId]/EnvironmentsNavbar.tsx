@@ -20,6 +20,7 @@ import { useEnvironment } from "@/lib/environments/environments";
 import { capitalizeFirstLetter } from "@/lib/utils";
 import {
   CustomersIcon,
+  DashboardIcon,
   ErrorComponent,
   FilterIcon,
   FormIcon,
@@ -91,12 +92,12 @@ export default function EnvironmentsNavbar({ environmentId, session }: Environme
         icon: FilterIcon,
         current: pathname?.includes("/events") || pathname?.includes("/attributes"),
       },
-      /*       {
+      {
         name: "Integrations",
-        href: `/environments/${environmentId}/integrations/installation`,
+        href: `/environments/${environmentId}/integrations`,
         icon: DashboardIcon,
         current: pathname?.includes("/integrations"),
-      }, */
+      },
       {
         name: "Settings",
         href: `/environments/${environmentId}/settings/profile`,

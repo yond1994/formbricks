@@ -12,6 +12,30 @@ generator client {
   //provider = "prisma-dbml-generator"
 }
 
+enum IntegrationType {
+  postHog
+  slack
+  zapier
+}
+
+enum IntegrationTrigger {
+  displayCreated
+  responseCreated
+}
+
+model Integration {
+  id            String               @id @default(cuid())
+  createdAt     DateTime             @default(now()) @map(name: "created_at")
+  updatedAt     DateTime             @updatedAt @map(name: "updated_at")
+  environment   Environment          @relation(fields: [environmentId], references: [id], onDelete: Cascade)
+  environmentId String
+  type          IntegrationType
+  config        Json
+  triggers      IntegrationTrigger[]
+
+  @@unique([environmentId, type])
+}
+
 model Attribute {
   id               String         @id @default(cuid())
   createdAt        DateTime       @default(now()) @map(name: "created_at")
@@ -198,6 +222,7 @@ model Environment {
   eventClasses         EventClass[]
   attributeClasses     AttributeClass[]
   apiKeys              ApiKey[]
+  integrations         Integration[]
 }
 
 model Product {
