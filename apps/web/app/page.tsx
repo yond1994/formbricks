@@ -1,9 +1,9 @@
 import LoadingSpinner from "@/components/shared/LoadingSpinner";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
-import { authOptions } from "pages/api/auth/[...nextauth]";
+import { authOptions } from "@/app/api/auth/[...nextauth]/authOptions";
 import { HomeRedirect } from "./components";
-import { PosthogClientWrapper } from "./PosthogClientWrapper";
+import { PosthogClient } from "./PosthogClient";
 
 export default async function Home() {
   const session = await getServerSession(authOptions);
@@ -11,11 +11,10 @@ export default async function Home() {
     redirect("/auth/login");
   }
   return (
-    <PosthogClientWrapper>
-      <div>
-        <HomeRedirect />
-        <LoadingSpinner />
-      </div>
-    </PosthogClientWrapper>
+    <>
+      <PosthogClient />
+      <HomeRedirect />
+      <LoadingSpinner />
+    </>
   );
 }

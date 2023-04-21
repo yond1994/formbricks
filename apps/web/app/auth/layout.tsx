@@ -1,7 +1,7 @@
 import { Logo } from "@/components/Logo";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
-import { PosthogClientWrapper } from "../PosthogClientWrapper";
+import { PosthogClient } from "../PosthogClient";
 
 export default async function AuthLayout({ children }: { children: React.ReactNode }) {
   const session = await getServerSession();
@@ -9,7 +9,8 @@ export default async function AuthLayout({ children }: { children: React.ReactNo
     redirect(`/`);
   }
   return (
-    <PosthogClientWrapper>
+    <>
+      <PosthogClient />
       <div className="min-h-screen bg-slate-50">
         <div className="isolate bg-white">
           <div className="bg-gradient-radial flex min-h-screen from-slate-200 to-slate-50">
@@ -24,6 +25,6 @@ export default async function AuthLayout({ children }: { children: React.ReactNo
           </div>
         </div>
       </div>
-    </PosthogClientWrapper>
+    </>
   );
 }

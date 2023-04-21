@@ -1,5 +1,10 @@
-import { PosthogClientWrapper } from "../PosthogClientWrapper";
+import { PosthogClient } from "../PosthogClient";
 
 export default async function AuthLayout({ children }: { children: React.ReactNode }) {
-  return <PosthogClientWrapper>{children}</PosthogClientWrapper>;
+  return (
+    <>
+      <PosthogClient />
+      {children}
+    </>
+  );
 }

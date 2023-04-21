@@ -21,10 +21,9 @@ if (
   });
 }
 
-export function PosthogClientWrapper({ children }: { children: React.ReactNode }) {
+export function PosthogClient() {
   if (posthogEnabled) {
-    return <PostHogProvider client={posthog}>{children}</PostHogProvider>;
-  } else {
-    return <>{children}</>;
+    return <PostHogProvider client={posthog} />;
   }
+  return null;
 }

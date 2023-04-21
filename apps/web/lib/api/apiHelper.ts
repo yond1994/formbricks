@@ -1,8 +1,8 @@
-import { authOptions } from "@/pages/api/auth/[...nextauth]";
+import { authOptions } from "@/app/api/auth/[...nextauth]/authOptions";
 import { prisma } from "@formbricks/database";
 import { createHash } from "crypto";
 import { NextApiRequest, NextApiResponse } from "next";
-import { getServerSession } from "next-auth";
+import { Session, getServerSession } from "next-auth";
 
 export const hashApiKey = (key: string): string => createHash("sha256").update(key).digest("hex");
 
@@ -115,8 +115,13 @@ export const hasTeamAccess = async (user, teamId) => {
   return false;
 };
 
-export const getSessionUser = async (req: NextApiRequest, res: NextApiResponse) => {
+export const getSessionUser = async (req?: NextApiRequest, res?: NextApiResponse) => {
   // check for session (browser usage)
-  let session: any = await getServerSession(req, res, authOptions);
+  let session: Session | null;
+  if (req && res) {
+    session = await getServerSession(req, res, authOptions);
+  } else {
+    session = await getServerSession(authOptions);
+  }
   if (session && "user" in session) return session.user;
 };
