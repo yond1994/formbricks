@@ -1,3 +1,5 @@
+"use client";
+
 import { cn } from "@formbricks/lib/cn";
 import Link, { LinkProps } from "next/link";
 import React, { AnchorHTMLAttributes, ButtonHTMLAttributes, forwardRef } from "react";

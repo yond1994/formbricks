@@ -1,10 +1,9 @@
 /** @type {import('next').NextConfig} */
 
+require("dotenv").config({ path: "../../.env" });
 const { createId } = require("@paralleldrive/cuid2");
 
-const formbricksUrl = process.env.VERCEL_URL
-  ? `https://${process.env.VERCEL_URL}`
-  : process.env.FORMBRICKS_URL;
+if (!process.env.NEXTAUTH_SECRET) throw new Error("Please set NEXTAUTH_SECRET");
 
 const nextConfig = {
   experimental: {
