@@ -22,10 +22,10 @@ export const removeMember = async (teamId: string, userId: string) => {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
     });
-    return result.status === 200;
+    return result;
   } catch (error) {
     console.error(error);
-    return false;
+    return error;
   }
 };
 
@@ -35,10 +35,10 @@ export const deleteInvite = async (teamId: string, inviteId: string) => {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
     });
-    return result.status === 200;
+    return result;
   } catch (error) {
     console.error(error);
-    return false;
+    return error;
   }
 };
 

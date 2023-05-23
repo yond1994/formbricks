@@ -31,10 +31,17 @@ export function EditMemberships({ environmentId }) {
     setDeleteMemberModalOpen(true);
   };
   const handleDeleteMember = async () => {
+    let result;
     if (activeMember.accepted) {
-      await removeMember(team.teamId, activeMember.userId);
+      result = await removeMember(team.teamId, activeMember.userId);
     } else {
-      await deleteInvite(team.teamId, activeMember.inviteId);
+      result = await deleteInvite(team.teamId, activeMember.inviteId);
+    }
+
+    if (result.status === 200) {
+      toast.success("Member removed from your team.");
+    } else {
+      toast.error("Something went wrong. Please try again.");
     }
     setDeleteMemberModalOpen(false);
     mutateTeam();
