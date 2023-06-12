@@ -4,8 +4,6 @@ RUN corepack enable && corepack prepare pnpm@latest --activate
 WORKDIR /app
 
 COPY . .
-# Copy .env file because Docker don't follow symlinks
-COPY .env /app/apps/web/
 
 RUN pnpm install
 
