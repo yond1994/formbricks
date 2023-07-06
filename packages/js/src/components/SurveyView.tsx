@@ -11,6 +11,7 @@ import Progress from "./Progress";
 import QuestionConditional from "./QuestionConditional";
 import ThankYouCard from "./ThankYouCard";
 import FormbricksSignature from "./FormbricksSignature";
+import type { TResponseInput } from "../../../types/v1/responses";
 
 interface SurveyViewProps {
   config: JsConfig;
@@ -120,6 +121,10 @@ export default function SurveyView({ config, survey, close, errorHandler }: Surv
           Array.isArray(logic.value) &&
           logic.value.some((v) => answerValue.includes(v))
         );
+      case "accepted":
+        return answerValue === "accepted";
+      case "clicked":
+        return answerValue === "clicked";
       case "submitted":
         if (typeof answerValue === "string") {
           return answerValue !== "dismissed" && answerValue !== "" && answerValue !== null;
@@ -168,10 +173,11 @@ export default function SurveyView({ config, survey, close, errorHandler }: Surv
 
     const finished = nextQuestionId === "end";
     // build response
-    const responseRequest = {
+    const responseRequest: TResponseInput = {
       surveyId: survey.id,
       personId: config.person.id,
-      response: { finished, data },
+      finished,
+      data,
     };
     if (!responseId) {
       const [response, _] = await Promise.all([
@@ -185,7 +191,7 @@ export default function SurveyView({ config, survey, close, errorHandler }: Surv
 
       if (result.ok !== true) {
         errorHandler(result.error);
-      } else if (responseRequest.response.finished) {
+      } else if (responseRequest.finished) {
         Logger.getInstance().debug("Submitted response");
       }
     }

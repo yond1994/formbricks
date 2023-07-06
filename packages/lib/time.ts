@@ -84,6 +84,13 @@ export const timeSince = (dateString: string) => {
 
 export const timeSinceConditionally = (dateString: string) => {
   return new Date().getTime() - new Date(dateString).getTime() > 14 * 24 * 60 * 60 * 1000
-    ? convertDateTimeString(dateString)
+    ? convertDateTimeStringShort(dateString)
     : timeSince(dateString);
+};
+
+export const getTodaysDateFormatted = (seperator: string) => {
+  const date = new Date();
+  const formattedDate = date.toISOString().split("T")[0].split("-").join(seperator);
+
+  return formattedDate;
 };

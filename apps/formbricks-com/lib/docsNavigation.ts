@@ -11,7 +11,8 @@ const navigation = [
     title: "Getting Started",
     links: [
       { title: "Quickstart", href: "/docs/getting-started/quickstart" },
-      { title: "Setup with Next.js", href: "/docs/getting-started/nextjs" },
+      { title: "Next.js App Dir", href: "/docs/getting-started/nextjs-app" },
+      { title: "Next.js Pages Dir", href: "/docs/getting-started/nextjs-pages" },
       { title: "Setup with Vue.js", href: "/docs/getting-started/vuejs" },
     ],
   },
@@ -44,6 +45,13 @@ const navigation = [
     ],
   },
   {
+    title: "Link Surveys",
+    links: [
+      { title: "Data Prefilling", href: "/docs/link-surveys/data-prefilling" },
+      { title: "User Identification", href: "/docs/link-surveys/user-identification" },
+    ],
+  },
+  {
     title: "API",
     links: [
       { title: "Overview", href: "/docs/api/overview" },
@@ -53,8 +61,19 @@ const navigation = [
   {
     title: "Client API",
     links: [
-      { title: "Create Response", href: "/docs/api/create-response" },
-      { title: "Update Response", href: "/docs/api/update-response" },
+      { title: "Overview", href: "/docs/client-api/overview" },
+      { title: "Create Response", href: "/docs/client-api/create-response" },
+      { title: "Update Response", href: "/docs/client-api/update-response" },
+    ],
+  },
+  {
+    title: "Webhook API",
+    links: [
+      { title: "Overview", href: "/docs/webhook-api/overview" },
+      { title: "List Webhooks", href: "/docs/webhook-api/list-webhooks" },
+      { title: "Get Webhook", href: "/docs/webhook-api/get-webhook" },
+      { title: "Create Webhook", href: "/docs/webhook-api/create-webhook" },
+      { title: "Delete Webhook", href: "/docs/webhook-api/delete-webhook" },
     ],
   },
   {
@@ -66,6 +85,8 @@ const navigation = [
     links: [
       { title: "Introduction", href: "/docs/contributing/introduction" },
       { title: "Setup Dev Environment", href: "/docs/contributing/setup" },
+      { title: "Demo App", href: "/docs/contributing/demo" },
+      { title: "Troubleshooting", href: "/docs/contributing/troubleshooting" },
     ],
   },
 ];

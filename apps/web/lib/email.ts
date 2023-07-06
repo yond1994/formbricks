@@ -16,7 +16,7 @@ interface sendEmailData {
   html: string;
 }
 
-export const sendEmail = async (emailData: sendEmailData) => {
+const sendEmail = async (emailData: sendEmailData) => {
   let transporter = nodemailer.createTransport({
     host: process.env.SMTP_HOST,
     port: process.env.SMTP_PORT,
@@ -134,7 +134,10 @@ export const sendResponseFinishedEmail = async (
     <hr/> 
 
     ${getQuestionResponseMapping(survey, response)
-      .map((question) => `<p><strong>${question.question}</strong></p><p>${question.answer}</p>`)
+      .map(
+        (question) =>
+          question.answer && `<p><strong>${question.question}</strong></p><p>${question.answer}</p>`
+      )
       .join("")} 
    
     <hr/>

@@ -157,6 +157,10 @@ export default function PreviewSurvey({
           Array.isArray(logic.value) &&
           logic.value.some((v) => answerValue.includes(v))
         );
+      case "accepted":
+        return answerValue === "accepted";
+      case "clicked":
+        return answerValue === "clicked";
       case "submitted":
         if (typeof answerValue === "string") {
           return answerValue !== "dismissed" && answerValue !== "" && answerValue !== null;
@@ -252,7 +256,7 @@ export default function PreviewSurvey({
       </div>
 
       {previewType === "modal" ? (
-        <Modal isOpen={isModalOpen}>
+        <Modal isOpen={isModalOpen} placement={product.placement}>
           {!countdownStop && autoClose !== null && autoClose > 0 && (
             <Progress progress={countdownProgress} brandColor={brandColor} />
           )}
@@ -285,7 +289,7 @@ export default function PreviewSurvey({
         </Modal>
       ) : (
         <div className="flex flex-grow flex-col">
-          <div className="flex w-full flex-grow flex-col items-center justify-center bg-white">
+          <div className="flex  w-full flex-grow flex-col items-center justify-center bg-white py-6">
             <div className="w-full max-w-md">
               {(activeQuestionId || lastActiveQuestionId) === "thank-you-card" ? (
                 <ThankYouCard

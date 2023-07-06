@@ -7,7 +7,7 @@ import type { Survey } from "@formbricks/types/surveys";
 import { ErrorComponent } from "@formbricks/ui";
 import { useEffect, useState } from "react";
 import PreviewSurvey from "../../PreviewSurvey";
-import AudienceView from "./AudienceView";
+import SettingsView from "./SettingsView";
 import QuestionsAudienceTabs from "./QuestionsAudienceTabs";
 import QuestionsView from "./QuestionsView";
 import SurveyMenuBar from "./SurveyMenuBar";
@@ -50,6 +50,7 @@ export default function SurveyEditor({ environmentId, surveyId }: SurveyEditorPr
       <SurveyMenuBar
         setLocalSurvey={setLocalSurvey}
         localSurvey={localSurvey}
+        survey={survey}
         environmentId={environmentId}
         activeId={activeView}
         setActiveId={setActiveView}
@@ -66,14 +67,14 @@ export default function SurveyEditor({ environmentId, surveyId }: SurveyEditorPr
               environmentId={environmentId}
             />
           ) : (
-            <AudienceView
+            <SettingsView
               environmentId={environmentId}
               localSurvey={localSurvey}
               setLocalSurvey={setLocalSurvey}
             />
           )}
         </main>
-        <aside className="group hidden flex-1 flex-shrink-0 items-center justify-center overflow-hidden border-l border-slate-100 bg-slate-50  md:flex md:flex-col">
+        <aside className="group hidden flex-1 flex-shrink-0 items-center justify-center overflow-hidden border-l border-slate-100 bg-slate-50 py-2  md:flex md:flex-col">
           <PreviewSurvey
             activeQuestionId={activeQuestionId}
             setActiveQuestionId={setActiveQuestionId}
