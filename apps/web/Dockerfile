@@ -1,6 +1,7 @@
 FROM node:18-alpine AS installer
 RUN corepack enable && corepack prepare pnpm@latest --activate
 
+ARG DATABASE_URL
 ARG NEXT_PUBLIC_WEBAPP_URL
 ARG NEXT_PUBLIC_EMAIL_VERIFICATION_DISABLED
 ARG NEXT_PUBLIC_PASSWORD_RESET_DISABLED
