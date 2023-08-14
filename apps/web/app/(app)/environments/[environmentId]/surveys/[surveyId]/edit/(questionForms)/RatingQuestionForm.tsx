@@ -2,9 +2,9 @@ import type { RatingQuestion } from "@formbricks/types/questions";
 import type { Survey } from "@formbricks/types/surveys";
 import { Button, Input, Label } from "@formbricks/ui";
 import { FaceSmileIcon, HashtagIcon, StarIcon } from "@heroicons/react/24/outline";
-import Dropdown from "./RatingTypeDropdown";
-import { TrashIcon, PlusIcon } from "@heroicons/react/24/solid";
+import { PlusIcon, TrashIcon } from "@heroicons/react/24/solid";
 import { useState } from "react";
+import Dropdown from "../(editor)/RatingTypeDropdown";
 
 interface RatingQuestionFormProps {
   localSurvey: Survey;

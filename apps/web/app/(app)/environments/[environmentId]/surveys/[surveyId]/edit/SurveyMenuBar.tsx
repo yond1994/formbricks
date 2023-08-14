@@ -13,7 +13,7 @@ import { isEqual } from "lodash";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { validateQuestion } from "./Validation";
+import { validateQuestion } from "./(editor)/Validation";
 
 interface SurveyMenuBarProps {
   localSurvey: Survey;

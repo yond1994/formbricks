@@ -1,6 +1,6 @@
 "use client";
 
-import AdvancedSettings from "@/app/(app)/environments/[environmentId]/surveys/[surveyId]/edit/AdvancedSettings";
+import AdvancedSettings from "@/app/(app)/environments/[environmentId]/surveys/[surveyId]/edit/(editor)/AdvancedSettings";
 import { getQuestionTypeName } from "@/lib/questions";
 import { cn } from "@formbricks/lib/cn";
 import { QuestionType } from "@formbricks/types/questions";
@@ -20,14 +20,14 @@ import {
 import * as Collapsible from "@radix-ui/react-collapsible";
 import { useState } from "react";
 import { Draggable } from "react-beautiful-dnd";
-import CTAQuestionForm from "./CTAQuestionForm";
-import ConsentQuestionForm from "./ConsentQuestionForm";
-import MultipleChoiceMultiForm from "./MultipleChoiceMultiForm";
-import MultipleChoiceSingleForm from "./MultipleChoiceSingleForm";
-import NPSQuestionForm from "./NPSQuestionForm";
-import OpenQuestionForm from "./OpenQuestionForm";
+import CTAQuestionForm from "../(questionForms)/CTAQuestionForm";
+import ConsentQuestionForm from "../(questionForms)/ConsentQuestionForm";
+import MultipleChoiceMultiForm from "../(questionForms)/MultipleChoiceMultiForm";
+import MultipleChoiceSingleForm from "../(questionForms)/MultipleChoiceSingleForm";
+import NPSQuestionForm from "../(questionForms)/NPSQuestionForm";
+import OpenQuestionForm from "../(questionForms)/OpenQuestionForm";
+import RatingQuestionForm from "../(questionForms)/RatingQuestionForm";
 import QuestionDropdown from "./QuestionMenu";
-import RatingQuestionForm from "./RatingQuestionForm";
 
 interface QuestionCardProps {
   localSurvey: Survey;

@@ -1,8 +1,7 @@
-import React from "react";
-import LogicEditor from "@/app/(app)/environments/[environmentId]/surveys/[surveyId]/edit/LogicEditor";
-import UpdateQuestionId from "./UpdateQuestionId";
+import LogicEditor from "@/app/(app)/environments/[environmentId]/surveys/[surveyId]/edit/(editor)/LogicEditor";
 import { Question } from "@formbricks/types/questions";
 import { Survey } from "@formbricks/types/surveys";
+import UpdateQuestionId from "./UpdateQuestionId";
 
 interface AdvancedSettingsProps {
   question: Question;

@@ -1,9 +1,9 @@
 import type { Survey } from "@formbricks/types/surveys";
-import HowToSendCard from "./HowToSendCard";
-import RecontactOptionsCard from "./RecontactOptionsCard";
-import ResponseOptionsCard from "./ResponseOptionsCard";
-import WhenToSendCard from "./WhenToSendCard";
-import WhoToSendCard from "./WhoToSendCard";
+import HowToSendCard from "./(settingsCards)/HowToSendCard";
+import RecontactOptionsCard from "./(settingsCards)/RecontactOptionsCard";
+import ResponseOptionsCard from "./(settingsCards)/ResponseOptionsCard";
+import WhenToSendCard from "./(settingsCards)/WhenToSendCard";
+import WhoToSendCard from "./(settingsCards)/WhoToSendCard";
 
 interface SettingsViewProps {
   environmentId: string;

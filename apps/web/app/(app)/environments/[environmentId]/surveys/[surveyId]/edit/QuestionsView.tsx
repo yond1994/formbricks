@@ -1,16 +1,16 @@
 "use client";
 
+import { Question } from "@formbricks/types/questions";
 import type { Survey } from "@formbricks/types/surveys";
 import { createId } from "@paralleldrive/cuid2";
 import { useMemo } from "react";
 import { DragDropContext } from "react-beautiful-dnd";
 import toast from "react-hot-toast";
-import AddQuestionButton from "./AddQuestionButton";
-import EditThankYouCard from "./EditThankYouCard";
-import QuestionCard from "./QuestionCard";
-import { StrictModeDroppable } from "./StrictModeDroppable";
-import { Question } from "@formbricks/types/questions";
-import { validateQuestion } from "./Validation";
+import AddQuestionButton from "./(editor)/AddQuestionButton";
+import QuestionCard from "./(editor)/QuestionCard";
+import { StrictModeDroppable } from "./(editor)/StrictModeDroppable";
+import { validateQuestion } from "./(editor)/Validation";
+import EditThankYouCard from "./(questionForms)/EditThankYouCard";
 
 interface QuestionsViewProps {
   localSurvey: Survey;

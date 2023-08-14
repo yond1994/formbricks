@@ -7,11 +7,11 @@ import { useSurvey } from "@/lib/surveys/surveys";
 import type { Survey } from "@formbricks/types/surveys";
 import { ErrorComponent } from "@formbricks/ui";
 import { useEffect, useState } from "react";
-import PreviewSurvey from "../../PreviewSurvey";
-import QuestionsAudienceTabs from "./QuestionsSettingsTabs";
-import QuestionsView from "./QuestionsView";
-import SettingsView from "./SettingsView";
-import SurveyMenuBar from "./SurveyMenuBar";
+import PreviewSurvey from "../../../PreviewSurvey";
+import QuestionsAudienceTabs from "../QuestionsSettingsTabs";
+import QuestionsView from "../QuestionsView";
+import SettingsView from "../SettingsView";
+import SurveyMenuBar from "../SurveyMenuBar";
 
 interface SurveyEditorProps {
   environmentId: string;
