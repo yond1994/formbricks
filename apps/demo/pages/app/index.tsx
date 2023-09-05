@@ -69,24 +69,48 @@ export default function AppPage({}) {
 
         <div className="md:grid md:grid-cols-3">
           <div className="col-span-3 rounded-lg border border-slate-300 bg-slate-100 p-6 dark:border-gray-600 dark:bg-gray-800">
-            <h3 className="text-lg font-semibold dark:text-white">
-              Reset person / pull data from Formbricks app
-            </h3>
+            <h3 className="text-lg font-semibold dark:text-white">Widget Controls</h3>
             <p className="text-slate-700 dark:text-gray-300">
-              On formbricks.reset() a few things happen: <strong>New person is created</strong> and{" "}
-              <strong>surveys & no-code actions are pulled from Formbricks:</strong>.
+              The widget can perform a Sync, Reset and Logout.
             </p>
-            <button
-              className="my-4 rounded-lg bg-slate-500 px-6 py-3 text-white hover:bg-slate-700 dark:bg-gray-700 dark:hover:bg-gray-600"
-              onClick={() => {
-                formbricks.reset();
-              }}>
-              Reset
-            </button>
-            <p className="text-xs text-slate-700 dark:text-gray-300">
-              If you made a change in Formbricks app and it does not seem to work, hit &apos;Reset&apos; and
-              try again.
-            </p>
+            <div className="grid grid-cols-3 gap-2">
+              <div>
+                <button
+                  className="my-4 w-full rounded-lg bg-slate-500 px-6 py-3 text-white hover:bg-slate-700 dark:bg-gray-700 dark:hover:bg-gray-600"
+                  onClick={() => {
+                    /* formbricks.sync(); */
+                  }}>
+                  Sync
+                </button>
+                <p className="text-xs text-slate-700 dark:text-gray-300">THIS BUTTON IS DEAD.</p>
+              </div>
+              <div>
+                <button
+                  className="my-4 w-full rounded-lg bg-slate-500 px-6 py-3 text-white hover:bg-slate-700 dark:bg-gray-700 dark:hover:bg-gray-600"
+                  onClick={() => {
+                    formbricks.reset();
+                  }}>
+                  Reset
+                </button>
+                <p className="text-xs text-slate-700 dark:text-gray-300">
+                  Resets the state / person <strong>and</strong> requests a new state / person from the server
+                  (i.e. a new unidentified user will appear in your Person view).
+                </p>
+              </div>
+              <div>
+                <button
+                  className="my-4 w-full rounded-lg bg-slate-500 px-6 py-3 text-white hover:bg-slate-700 dark:bg-gray-700 dark:hover:bg-gray-600"
+                  onClick={() => {
+                    formbricks.logout();
+                  }}>
+                  Logout
+                </button>
+                <p className="text-xs text-slate-700 dark:text-gray-300">
+                  Resets the state / person <strong>without</strong> getting a new state / person from the
+                  server (the current user will be logged out).
+                </p>
+              </div>
+            </div>
           </div>
 
           <div className="p-6">
@@ -207,7 +231,7 @@ export default function AppPage({}) {
             <div>
               <button
                 onClick={() => {
-                  formbricks.setUserId("THIS-IS-A-VERY-LONG-USER-ID-FOR-TESTING");
+                  formbricks.setUserId("THIS-IS-A-USER-ID-FOR-TESTING");
                 }}
                 className="mb-4 rounded-lg bg-slate-800 px-6 py-3 text-white hover:bg-slate-700  dark:bg-gray-700 dark:hover:bg-gray-600">
                 Set User ID
@@ -222,7 +246,7 @@ export default function AppPage({}) {
                   className="underline dark:text-blue-500">
                   user ID
                 </a>{" "}
-                to &apos;THIS-IS-A-VERY-LONG-USER-ID-FOR-TESTING&apos;
+                to &apos;THIS-IS-A-USER-ID-FOR-TESTING&apos;
               </p>
             </div>
           </div>
