@@ -2,9 +2,11 @@ import formbricks from "@formbricks/js";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import fbsetup from "../../public/fb-setup.png";
+import PersonDetails from "@/pages/app/personDetails";
 
 export default function AppPage({}) {
   const [darkMode, setDarkMode] = useState(false);
+  const [refreshKey, setRefreshKey] = useState(0);
 
   useEffect(() => {
     if (darkMode) {
@@ -15,7 +17,7 @@ export default function AppPage({}) {
   }, [darkMode]);
 
   return (
-    <div className="h-full bg-white px-12 py-6 dark:bg-slate-800">
+    <div className="h-[100vh] bg-white px-12 py-6 dark:bg-slate-800">
       <div className="flex flex-col justify-between md:flex-row">
         <div>
           <h1 className="text-2xl font-bold text-slate-900 dark:text-white">
@@ -65,6 +67,14 @@ export default function AppPage({}) {
               <LogsContainer />
             </div> */}
           </div>
+          <div className="mt-4 rounded-lg border border-slate-300 bg-slate-100 p-6 dark:border-slate-600 dark:bg-slate-900">
+            <h3 className="text-lg font-semibold text-slate-900 dark:text-white">3. Person Details</h3>
+            <p className="text-slate-700 dark:text-slate-300">
+              The formbricks widget collects data about each person using an app. Since you are using the demo
+              app right now its colelction your data.
+            </p>
+            <PersonDetails refreshKey={refreshKey} />
+          </div>
         </div>
 
         <div className="md:grid md:grid-cols-3">
@@ -78,17 +88,20 @@ export default function AppPage({}) {
                 <button
                   className="my-4 w-full rounded-lg bg-slate-500 px-6 py-3 text-white hover:bg-slate-700 dark:bg-gray-700 dark:hover:bg-gray-600"
                   onClick={() => {
-                    /* formbricks.sync(); */
+                    formbricks.performSync();
                   }}>
                   Sync
                 </button>
-                <p className="text-xs text-slate-700 dark:text-gray-300">THIS BUTTON IS DEAD.</p>
+                <p className="text-xs text-slate-700 dark:text-gray-300">
+                  Syncs the system&apos;s current state with the backend and updates the user session.
+                </p>
               </div>
               <div>
                 <button
                   className="my-4 w-full rounded-lg bg-slate-500 px-6 py-3 text-white hover:bg-slate-700 dark:bg-gray-700 dark:hover:bg-gray-600"
-                  onClick={() => {
-                    formbricks.reset();
+                  onClick={async () => {
+                    await formbricks.reset();
+                    setRefreshKey((prevKey) => prevKey + 1);
                   }}>
                   Reset
                 </button>
@@ -161,8 +174,9 @@ export default function AppPage({}) {
           <div className="p-6">
             <div>
               <button
-                onClick={() => {
-                  formbricks.setAttribute("Plan", "Free");
+                onClick={async () => {
+                  await formbricks.setAttribute("Plan", "Free");
+                  setRefreshKey((prevKey) => prevKey + 1);
                 }}
                 className="mb-4 rounded-lg bg-slate-800 px-6 py-3 text-white hover:bg-slate-700  dark:bg-gray-700 dark:hover:bg-gray-600">
                 Set Plan to &apos;Free&apos;
@@ -184,8 +198,9 @@ export default function AppPage({}) {
           <div className="p-6">
             <div>
               <button
-                onClick={() => {
-                  formbricks.setAttribute("Plan", "Paid");
+                onClick={async () => {
+                  await formbricks.setAttribute("Plan", "Paid");
+                  setRefreshKey((prevKey) => prevKey + 1);
                 }}
                 className="mb-4 rounded-lg bg-slate-800 px-6 py-3 text-white hover:bg-slate-700  dark:bg-gray-700 dark:hover:bg-gray-600">
                 Set Plan to &apos;Paid&apos;
@@ -207,8 +222,9 @@ export default function AppPage({}) {
           <div className="p-6">
             <div>
               <button
-                onClick={() => {
-                  formbricks.setEmail("test@web.com");
+                onClick={async () => {
+                  await formbricks.setEmail("test@web.com");
+                  setRefreshKey((prevKey) => prevKey + 1);
                 }}
                 className="mb-4 rounded-lg bg-slate-800 px-6 py-3 text-white hover:bg-slate-700  dark:bg-gray-700 dark:hover:bg-gray-600">
                 Set Email
@@ -230,8 +246,11 @@ export default function AppPage({}) {
           <div className="p-6">
             <div>
               <button
-                onClick={() => {
-                  formbricks.setUserId("THIS-IS-A-USER-ID-FOR-TESTING");
+                onClick={async () => {
+                  try {
+                    await formbricks.setUserId("THIS-IS-A-USER-ID-FOR-TESTING");
+                    setRefreshKey((prevKey) => prevKey + 1);
+                  } catch (error) {}
                 }}
                 className="mb-4 rounded-lg bg-slate-800 px-6 py-3 text-white hover:bg-slate-700  dark:bg-gray-700 dark:hover:bg-gray-600">
                 Set User ID

@@ -1,3 +1,10 @@
+import { DatabaseError } from "@formbricks/errors";
+import { TAction } from "@formbricks/types/v1/actions";
+import { cache } from "react";
+import { Prisma } from "@prisma/client";
+import { prisma } from "@formbricks/database";
+
+import "server-only";
 import {
   startOfQuarter,
   subQuarters,
@@ -7,8 +14,6 @@ import {
   startOfWeek,
   differenceInDays,
 } from "date-fns";
-
-import { prisma } from "@formbricks/database";
 
 export const getStartDateOfLastQuarter = () => {
   return startOfQuarter(subQuarters(new Date(), 1));
@@ -156,3 +161,42 @@ export const getFirstOccurrenceDaysAgo = async (
   if (!firstEvent) return null;
   return differenceInDays(new Date(), firstEvent.createdAt);
 };
+
+export const getActionsByEnvironmentId = cache(
+  async (environmentId: string, limit?: number): Promise<TAction[]> => {
+    try {
+      const actionsPrisma = await prisma.event.findMany({
+        where: {
+          eventClass: {
+            environmentId: environmentId,
+          },
+        },
+        orderBy: {
+          createdAt: "desc",
+        },
+        take: limit ? limit : 20,
+        include: {
+          eventClass: true,
+        },
+      });
+      const actions: TAction[] = [];
+      // transforming response to type TAction[]
+      actionsPrisma.forEach((action) => {
+        actions.push({
+          id: action.id,
+          createdAt: action.createdAt,
+          sessionId: action.sessionId,
+          properties: action.properties,
+          actionClass: action.eventClass,
+        });
+      });
+      return actions;
+    } catch (error) {
+      if (error instanceof Prisma.PrismaClientKnownRequestError) {
+        throw new DatabaseError("Database operation failed");
+      }
+
+      throw error;
+    }
+  }
+);
