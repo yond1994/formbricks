@@ -8,7 +8,7 @@ import { createMembership } from "@formbricks/lib/membership/service";
 import { createProduct } from "@formbricks/lib/product/service";
 import { createShortUrl } from "@formbricks/lib/shortUrl/service";
 import { canUserAccessSurvey } from "@formbricks/lib/survey/auth";
-import { deleteSurvey, getSurvey } from "@formbricks/lib/survey/service";
+import { createSurvey, deleteSurvey, getSurvey } from "@formbricks/lib/survey/service";
 import { createTeam, getTeamByEnvironmentId } from "@formbricks/lib/team/service";
 import { AuthenticationError, AuthorizationError, ResourceNotFoundError } from "@formbricks/types/v1/errors";
 import { Team } from "@prisma/client";
@@ -62,46 +62,43 @@ export async function duplicateSurveyAction(environmentId: string, surveyId: str
     throw new ResourceNotFoundError("Survey", surveyId);
   }
 
-  // create new survey with the data of the existing survey
-  const newSurvey = await prisma.survey.create({
-    data: {
-      ...existingSurvey,
-      id: undefined, // id is auto-generated
-      environmentId: undefined, // environmentId is set below
-      name: `${existingSurvey.name} (copy)`,
-      status: "draft",
-      questions: JSON.parse(JSON.stringify(existingSurvey.questions)),
-      thankYouCard: JSON.parse(JSON.stringify(existingSurvey.thankYouCard)),
-      triggers: {
-        create: existingSurvey.triggers.map((trigger) => ({
-          eventClassId: trigger.id,
-        })),
-      },
-      attributeFilters: {
-        create: existingSurvey.attributeFilters.map((attributeFilter) => ({
-          attributeClassId: attributeFilter.attributeClassId,
-          condition: attributeFilter.condition,
-          value: attributeFilter.value,
-        })),
-      },
-      environment: {
-        connect: {
-          id: environmentId,
-        },
-      },
-      surveyClosedMessage: existingSurvey.surveyClosedMessage
-        ? JSON.parse(JSON.stringify(existingSurvey.surveyClosedMessage))
-        : prismaClient.JsonNull,
-      singleUse: existingSurvey.singleUse
-        ? JSON.parse(JSON.stringify(existingSurvey.singleUse))
-        : prismaClient.JsonNull,
-      productOverwrites: existingSurvey.productOverwrites
-        ? JSON.parse(JSON.stringify(existingSurvey.productOverwrites))
-        : prismaClient.JsonNull,
-      verifyEmail: existingSurvey.verifyEmail
-        ? JSON.parse(JSON.stringify(existingSurvey.verifyEmail))
-        : prismaClient.JsonNull,
+  const newSurvey = await createSurvey(environmentId, {
+    ...existingSurvey,
+    id: undefined, // id is auto-generated
+    environmentId: undefined, // environmentId is set below
+    name: `${existingSurvey.name} (copy)`,
+    status: "draft",
+    questions: JSON.parse(JSON.stringify(existingSurvey.questions)),
+    thankYouCard: JSON.parse(JSON.stringify(existingSurvey.thankYouCard)),
+    triggers: {
+      create: existingSurvey.triggers.map((trigger) => ({
+        eventClassId: trigger.id,
+      })),
     },
+    attributeFilters: {
+      create: existingSurvey.attributeFilters.map((attributeFilter) => ({
+        attributeClassId: attributeFilter.attributeClassId,
+        condition: attributeFilter.condition,
+        value: attributeFilter.value,
+      })),
+    },
+    environment: {
+      connect: {
+        id: environmentId,
+      },
+    },
+    surveyClosedMessage: existingSurvey.surveyClosedMessage
+      ? JSON.parse(JSON.stringify(existingSurvey.surveyClosedMessage))
+      : prismaClient.JsonNull,
+    singleUse: existingSurvey.singleUse
+      ? JSON.parse(JSON.stringify(existingSurvey.singleUse))
+      : prismaClient.JsonNull,
+    productOverwrites: existingSurvey.productOverwrites
+      ? JSON.parse(JSON.stringify(existingSurvey.productOverwrites))
+      : prismaClient.JsonNull,
+    verifyEmail: existingSurvey.verifyEmail
+      ? JSON.parse(JSON.stringify(existingSurvey.verifyEmail))
+      : prismaClient.JsonNull,
   });
   return newSurvey;
 }
