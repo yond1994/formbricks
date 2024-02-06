@@ -225,6 +225,7 @@ export default function SingleResponseCard({
   const hasFieldIds = !!fieldIds.length;
 
   const updateFetchedResponses = async () => {
+    console.log("test");
     const updatedResponse = await getResponseAction(response.id);
     if (updatedResponse !== null && setFetchedResponses) {
       setFetchedResponses((prevResponses) =>
