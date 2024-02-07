@@ -84,7 +84,7 @@ export class ResponseQueue {
         const response = await this.api.client.response.create({
           id: newResponseId,
           ...responseUpdate,
-          surveyId: this.surveyState.surveyId,
+          const { surveyId, userId, singleUseId } = this.surveyState;
           userId: this.surveyState.userId || null,
           singleUseId: this.surveyState.singleUseId || null,
         });
