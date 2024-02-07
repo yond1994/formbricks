@@ -100,9 +100,9 @@ export class ResponseQueue {
         }
       }
       return true;
-    } catch (error) {
+    catch (error) {
       console.error(error);
-      return false;
+      throw error;
     }
   }
 
