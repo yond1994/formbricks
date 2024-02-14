@@ -22,19 +22,19 @@ const cloudRateLimiter = (options: Options) => {
   };
 };
 
-const selfHostingRateLimiter = (options: Options) => {
-  return async (token: string) => {
-    const tokenCountResponse = await fetch(`${REDIS_HTTP_CLIENT_URL}/INCR/${token}`);
-    const tokenCountData = await tokenCountResponse.json();
-    const tokenCount = parseInt(tokenCountData["INCR"]);
-    if (tokenCount === 1) {
-      await fetch(`${REDIS_HTTP_CLIENT_URL}/EXPIRE/${token}/${options.interval / 1000}`);
-    }
+import Redis from 'ioredis';
 
-    if (tokenCount > options.allowedPerInterval) {
-      throw new Error("Rate limit exceeded for IP: " + token);
-    }
-  };
+const redis = new Redis(REDIS_HTTP_CLIENT_URL);
+
+const selfHostingRateLimiter = async (options: Options) => {
+  const tokenCount = await redis.incr(token);
+  if (tokenCount === 1) {
+    await redis.expire(token, options.interval / 1000);
+  }
+  if (tokenCount > options.allowedPerInterval) {
+    throw new Error("Rate limit exceeded for IP: " + token);
+  }
+};
 };
 
 export default function rateLimit(options: Options) {
