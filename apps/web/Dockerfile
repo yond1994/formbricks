@@ -74,7 +74,7 @@ VOLUME /home/nextjs/apps/web/uploads/
 CMD supercronic -quiet /app/docker/cronjobs & \
     if [ "$NEXTAUTH_SECRET" != "RANDOM_STRING" ]; then \
         echo "$$$$$ Version: $(pnpm --package=@pnpm/prisma@5.8.1 dlx prisma --version)"; \
-        pnpm --package=@pnpm/prisma@5.8.1 dlx prima migrate deploy && \
+        pnpm --package=@pnpm/prisma@5.8.1 dlx prisma migrate deploy && \
         exec node apps/web/server.js; \
     else \
         echo "ERROR: Please set a value for NEXTAUTH_SECRET in your docker compose variables!" >&2; \
