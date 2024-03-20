@@ -37,7 +37,7 @@ export default async function Home() {
       throw new Error("No environment found");
     }
   } catch (error) {
-    logger.error("error getting environment", error);
+    logger.error(`Error getting environment for user with id ${session?.user.id}: ${error}`);
   }
 
   if (!environment) {
