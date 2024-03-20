@@ -78,7 +78,7 @@ export async function POST(req: Request, { params }): Promise<Response> {
 
     return responses.successResponse({ ...state, person }, true);
   } catch (error) {
-    logger.error(error);
+    logger.error(`Error in POST request in set-attribute route for personId ${personId}: ${error.message}`);
     return responses.internalServerErrorResponse(`Unable to complete request: ${error.message}`, true);
   }
 }
