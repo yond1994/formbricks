@@ -29,8 +29,8 @@ export default async function InvitePage({ searchParams }) {
       return <InvitationNotFound />;
     }
 
-    const isInviteExpired = new Date(invite.expiresAt) < new Date();
-
+    const currentDate = new Date();
+    const isInviteExpired = new Date(invite.expiresAt) < currentDate;
     if (isInviteExpired) {
       return <ExpiredContent />;
     } else if (invite.accepted) {
