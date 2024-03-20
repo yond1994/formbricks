@@ -142,7 +142,7 @@ export async function GET(
     if (!product) {
       throw new Error("Product not found");
     }
-    const languageAttribute = person.attributes.language;
+    const { language: languageAttribute } = person.attributes;
     const isLanguageAvailable = Boolean(languageAttribute);
 
     const personData = version
