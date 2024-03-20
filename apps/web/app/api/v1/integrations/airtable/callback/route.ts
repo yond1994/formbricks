@@ -73,7 +73,7 @@ export async function GET(req: NextRequest) {
     });
     return Response.redirect(`${WEBAPP_URL}/environments/${environmentId}/integrations/airtable`);
   } catch (error) {
-    logger.error(error);
+    logger.error("Error while fetching Airtable auth token", error);
     responses.internalServerErrorResponse(error);
   }
   responses.badRequestResponse("unknown error occurred");
