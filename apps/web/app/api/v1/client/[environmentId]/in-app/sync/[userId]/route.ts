@@ -159,14 +159,14 @@ export async function GET(
     let transformedSurveys: TLegacySurvey[] | TSurvey[];
 
     // Backwards compatibility for versions less than 1.7.0 (no multi-language support).
-    if (version && isVersionGreaterThanOrEqualTo(version, "1.7.0")) {
-      // Scenario 1: Multi language supported
-      // Use the surveys as they are.
-      transformedSurveys = surveys;
-    } else {
-      // Scenario 2: Multi language not supported
-      // Convert to legacy surveys with default language.
-      transformedSurveys = await Promise.all(
+    transformedSurveys = version && isVersionGreaterThanOrEqualTo(version, "1.7.0") 
+    ? surveys 
+    : await Promise.all(
+      surveys.map((survey) => {
+        const languageCode = "default";
+        return transformToLegacySurvey(survey, languageCode);
+      })
+    );
         surveys.map((survey) => {
           const languageCode = "default";
           return transformToLegacySurvey(survey, languageCode);
