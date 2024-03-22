@@ -24,6 +24,10 @@ const nextConfig = {
       "app/api/js": ["../../packages/**/*"],
     },
   },
+  webpack: (config) => {
+    config.externals.push("pino-pretty", "lokijs", "encoding");
+    return config;
+  },
   transpilePackages: ["@formbricks/database", "@formbricks/ee", "@formbricks/ui", "@formbricks/lib"],
   images: {
     remotePatterns: [
