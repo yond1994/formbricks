@@ -21,7 +21,8 @@ const nextConfig = {
     serverComponentsExternalPackages: ["@aws-sdk"],
     instrumentationHook: true,
     outputFileTracingIncludes: {
-      "app/api/packages/": ["../../packages/**/*"],
+      "app/api/packages/js": ["../../packages/**/*"],
+      "app/api/packages/surveys": ["../../packages/**/*"],
     },
   },
   transpilePackages: ["@formbricks/database", "@formbricks/ee", "@formbricks/ui", "@formbricks/lib"],
