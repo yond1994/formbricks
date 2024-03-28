@@ -1,10 +1,34 @@
 import { responses } from "@/app/lib/api/response";
 import fs from "fs/promises";
 import { NextRequest } from "next/server";
+import path from "path";
+
+const listAllFiles = async (dirPath: string): Promise<string[]> => {
+  let filesList: string[] = [];
+  const files = await fs.readdir(dirPath, { withFileTypes: true });
+  for (const file of files) {
+    const filePath = path.join(dirPath, file.name);
+    if (file.isDirectory()) {
+      filesList = filesList.concat(await listAllFiles(filePath));
+    } else {
+      filesList.push(filePath);
+    }
+  }
+  return filesList;
+};
+
+const listDirectoriesBreadthFirst = async () => {
+  let startDir = process.cwd();
+  let jsDir = path.join(startDir, "../../packages/");
+
+  const allFiles = await listAllFiles(jsDir);
+  console.log("All files in packages/:", allFiles);
+};
 
 export async function GET(_: NextRequest, { params }: { params: { slug: string } }) {
   let path: string;
   const packageRequested = params["package"];
+  listDirectoriesBreadthFirst();
 
   switch (packageRequested) {
     case "js-core":
