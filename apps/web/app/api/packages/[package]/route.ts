@@ -28,7 +28,7 @@ const listDirectoriesBreadthFirst = async () => {
 export async function GET(_: NextRequest, { params }: { params: { slug: string } }) {
   let path: string;
   const packageRequested = params["package"];
-  listDirectoriesBreadthFirst();
+  await listDirectoriesBreadthFirst();
 
   switch (packageRequested) {
     case "js-core":
