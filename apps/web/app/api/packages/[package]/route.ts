@@ -3,26 +3,25 @@ import fs from "fs/promises";
 import { NextRequest } from "next/server";
 import path from "path";
 
-const listAllFiles = async (dirPath: string): Promise<string[]> => {
-  let filesList: string[] = [];
+const listAllDirectories = async (dirPath: string): Promise<string[]> => {
+  let directoriesList: string[] = [];
   const files = await fs.readdir(dirPath, { withFileTypes: true });
   for (const file of files) {
     const filePath = path.join(dirPath, file.name);
     if (file.isDirectory()) {
-      filesList = filesList.concat(await listAllFiles(filePath));
-    } else {
-      filesList.push(filePath);
+      directoriesList.push(filePath);
+      directoriesList = directoriesList.concat(await listAllDirectories(filePath));
     }
   }
-  return filesList;
+  return directoriesList;
 };
 
 const listDirectoriesBreadthFirst = async () => {
   let startDir = process.cwd();
   let jsDir = path.join(startDir, "../../packages/");
 
-  const allFiles = await listAllFiles(jsDir);
-  console.log("All files in packages/:", allFiles);
+  const allDirectories = await listAllDirectories(jsDir);
+  console.log("All directories in packages/:", allDirectories);
 };
 
 export async function GET(_: NextRequest, { params }: { params: { slug: string } }) {
