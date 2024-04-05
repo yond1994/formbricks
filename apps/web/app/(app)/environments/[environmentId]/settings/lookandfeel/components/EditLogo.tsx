@@ -9,7 +9,7 @@ import { TProduct, TProductUpdateInput } from "@formbricks/types/product";
 import { AdvancedOptionToggle } from "@formbricks/ui/AdvancedOptionToggle";
 import { Button } from "@formbricks/ui/Button";
 import { ColorPicker } from "@formbricks/ui/ColorPicker";
-import FileInput from "@formbricks/ui/FileInput";
+import { FileInput } from "@formbricks/ui/FileInput";
 import { Input } from "@formbricks/ui/Input";
 
 import { updateProductAction } from "../actions";
