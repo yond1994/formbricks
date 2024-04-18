@@ -19,11 +19,13 @@ type TSendEmailActionArgs = {
 
 export const sendEmailAction = async ({ html, subject, to }: TSendEmailActionArgs) => {
   const session = await getServerSession(authOptions);
+  console.log(session);
+  const envId = "123";
 
   if (!session) {
     throw new AuthenticationError("Not authenticated");
   }
-  return await sendEmbedSurveyPreviewEmail(to, subject, html);
+  return await sendEmbedSurveyPreviewEmail(to, subject, html, envId);
 };
 
 export async function generateResultShareUrlAction(surveyId: string): Promise<string> {
