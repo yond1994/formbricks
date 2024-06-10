@@ -1,5 +1,6 @@
 "use client";
 
+import { cn } from "@/lib/utils";
 import { useEffect, useMemo, useRef, useState } from "preact/hooks";
 import { TProductStyling } from "@formbricks/types/product";
 import { TCardArrangementOptions } from "@formbricks/types/styling";
@@ -16,6 +17,7 @@ interface StackedCardsContainerProps {
   styling: TProductStyling | TSurveyStyling;
   setQuestionId: (questionId: string) => void;
   shouldResetQuestionId?: boolean;
+  fullSizeCards: boolean;
 }
 
 export const StackedCardsContainer = ({
@@ -26,6 +28,7 @@ export const StackedCardsContainer = ({
   styling,
   setQuestionId,
   shouldResetQuestionId = true,
+  fullSizeCards = false,
 }: StackedCardsContainerProps) => {
   const [hovered, setHovered] = useState(false);
   const highlightBorderColor =
@@ -89,7 +92,7 @@ export const StackedCardsContainer = ({
     return (offset: number) => {
       switch (cardArrangement) {
         case "casual":
-          return offset < 0 ? `translateX(33%)` : `translateX(0) rotate(-${(hovered ? 3.5 : 3) * offset}deg)`;
+          return offset < 0 ? `translateX(33%)` : `translateX(0) rotate(-${(hovered ? 3 : 2.5) * offset}deg)`;
         case "straight":
           return offset < 0 ? `translateY(25%)` : `translateY(-${(hovered ? 12 : 10) * offset}px)`;
         default:
@@ -147,7 +150,7 @@ export const StackedCardsContainer = ({
 
   return (
     <div
-      className="relative flex items-end justify-center md:items-center"
+      className="relative flex h-full items-end justify-center md:items-center"
       onMouseEnter={() => {
         setHovered(true);
       }}
@@ -155,7 +158,7 @@ export const StackedCardsContainer = ({
       <div style={{ height: cardHeight }}></div>
       {cardArrangement === "simple" ? (
         <div
-          className="w-full"
+          className={cn("w-full", fullSizeCards ? "h-full" : "")}
           style={{
             ...borderStyles,
           }}>
@@ -182,7 +185,7 @@ export const StackedCardsContainer = ({
                   zIndex: 1000 - questionIdxTemp,
                   transform: `${calculateCardTransform(offset)}`,
                   opacity: isHidden ? 0 : (100 - 0 * offset) / 100,
-                  height: getCardHeight(offset),
+                  height: fullSizeCards ? "100%" : getCardHeight(offset),
                   transitionDuration: "600ms",
                   pointerEvents: offset === 0 ? "auto" : "none",
                   ...borderStyles,
